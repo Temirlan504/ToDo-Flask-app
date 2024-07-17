@@ -3,12 +3,15 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block body %}
-    <nav class="navbar" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-expand-lg" style="background-color: #9ed7ff;">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ url_for('home') }}">My App</a>
-            <ul class="navbar-nav">
+            <ul class="navbar-nav inline">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Logout</a>
+                    <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('account') }}">My Account</a>
                 </li>
             </ul>
         </div>
