@@ -8,21 +8,31 @@
             <a class="navbar-brand" href="{{ url_for('home') }}">My App</a>
             <ul class="navbar-nav inline">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                    <a class="nav-link" href="{{ url_for('new_task') }}">Create Tasks</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('account') }}">My Account</a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <h1 class="container">Tasks</h1>
+    <h1 style="margin-top: 10px;" class="container">Tasks</h1>
     <div class="container">
-        <ul>
-            <li>Task 1</li>
-            <li>Task 2</li>
-            <li>Task 3</li>
-        </ul>
+        {% for task in tasks %}
+            <div class="card mt-3">
+                <div class="card-body">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="{{ task.completed }}">
+                        <h5 class="card-title form-check-label" for="inlineCheckbox1"><a class="link-body-emphasis link-underline-opacity-0 link-underline-opacity-0-hover" href="{{ url_for('task_detail', task_id=task.id) }}">{{ task.title }}</a></h5>
+                    </div>
+                    <p class="card-text mt-3">{{ task.content|replace('\n', '<br>') | safe }}</p>
+                    <small class="text-muted">{{ task.date_created.strftime('%h %d, %Y %H:%M') }} {% if edited %}Edited{% endif %}</small>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

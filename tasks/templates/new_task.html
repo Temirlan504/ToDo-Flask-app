@@ -15,27 +15,41 @@
     </nav>
 
     <div class="container mt-5">
-        <h1>{{ current_user.username }}</h1>
-        <div>Tasks to complete: 0</div>
-
+        <h1>{{ title }}</h1>
+        
         <form method="post" action="" style="margin-top: 20px;">
             {{ form.hidden_tag() }}
 
             <fieldset class="form-group col-md-6">
-                <legend class="border-bottom mb-4">Account Info</legend>
+                <legend class="border-bottom mb-4">Task Info</legend>
 
                 <div class="form-group">
-                    {{ form.username.label(class="form-control-label") }}
+                    {{ form.title.label(class="form-control-label") }}
 
-                    {% if form.username.errors %}
-                        {{ form.username(class="form-control form-control-lg is-invalid") }}
+                    {% if form.title.errors %}
+                        {{ form.title(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
-                            {% for error in form.username.errors %}
+                            {% for error in form.title.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.username(class="form-control form-control-lg") }}
+                        {{ form.title(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.content.label(class="form-control-label") }}
+
+                    {% if form.content.errors %}
+                        {{ form.content(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.content.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.content(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
 
