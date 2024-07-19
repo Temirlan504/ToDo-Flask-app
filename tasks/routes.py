@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from flask import abort, flash, redirect, render_template, request, url_for
+from flask import abort, flash, jsonify, redirect, render_template, request, url_for
 from tasks import app, bcrypt, db
 from .models import Task, User
 from .forms import RegisterForm, LoginForm, UpdateAccountForm, TaskForm, UpdateTaskForm
@@ -128,3 +128,27 @@ def delete_task(task_id):
     db.session.delete(task)
     db.session.commit()
     return redirect(url_for('home'))
+
+@app.route('/complete_task', methods=['POST'])
+@login_required
+def complete_task():
+    data = request.get_json()
+    task_id = data['task_id']
+    completed = data['completed']
+
+    task = Task.query.get_or_404(task_id)
+    if task.user_id != current_user.id:
+        abort(403)
+    task.completed = completed
+    db.session.commit()
+    return jsonify({'message': 'Task completed!'}), 200
+
+
+# Error handlers
+@app.errorhandler(403)
+def forbidden(e):
+    return "Nuh-uh, it's forbiden!", 403
+
+@app.errorhandler(405)
+def forbidden(e):
+    return "Nuh-uh, it's forbiden!", 405

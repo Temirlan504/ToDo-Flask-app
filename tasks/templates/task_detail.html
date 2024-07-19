@@ -1,6 +1,9 @@
 {% extends 'layout.html' %}
 
 {% block title %}{{ title }}{% endblock %}
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/edit_task.js') }}"></script> 
+{% endblock %}
 
 {% block body %}
     <nav class="navbar" style="background-color: #9ed7ff;">
